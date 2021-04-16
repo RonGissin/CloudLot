@@ -29,7 +29,11 @@ class VehicleLotTicketRepository {
 			}
 		};
 
-		await this.ddb.putItem(params).promise();
+		try {
+			await this.ddb.putItem(params).promise();
+		} catch (e) {
+			console.log(e);
+		}
 	}
 }
 
