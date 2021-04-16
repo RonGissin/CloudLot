@@ -1,41 +1,42 @@
-const { DynamoDBClient, GetItemCommand, PutItemCommand } = require('@aws-sdk/client-dynamodb');
+const { DynamoDB } = require('@aws-sdk/client-dynamodb');
+const { marshall, unmarshall } = require('@aws-sdk/util-dynamodb');
 
 const REGION = 'us-east-2';
 
 class VehicleLotTicketRepository {
 	constructor() {
-		this.dbclient = new DynamoDBClient({ region: REGION });
+		this.dbclient = new DynamoDB({ region: REGION });
 		this.tableName = 'CloudLotTickets';
 	}
 
 	async getVehicleLotTicket(ticketId) {
 		const params = {
 			TableName: this.tableName,
-			Key: {
-				id: { S: ticketId }
-			}
+			Key: marshall({
+				id: ticketId
+			})
 		};
 
-		const item = await this.dbclient.send(new GetItemCommand(params));
-		return item;
+		const item = await this.dbclient.getItem(params);
+		return unmarshall(item);
 	}
 
 	async addOrUpdateVehicleLotTicket(ticket) {
 		const params = {
 			TableName: this.tableName,
-			Item: {
-				id: { S: ticket.id },
-				plate: { S: ticket.plate },
-				parkingLotId: { S: ticket.parkingLotId },
-				timeOfEntry: { S: ticket.timeOfEntry.toString() },
-				timeOfExit: { S: ticket.timeOfExit.toString() },
-				status: { S: ticket.status }
-			}
+			Item: marshall({
+				id: ticket.id,
+				plate: ticket.plate,
+				parkingLotId: ticket.parkingLotId,
+				timeOfEntry: ticket.timeOfEntry.toString(),
+				timeOfExit: ticket.timeOfExit.toString(),
+				status: ticket.status
+			})
 		};
 
 		console.log(JSON.stringify(params.Item));
 		try {
-			await this.dbclient.send(new PutItemCommand(params));
+			await this.dbclient.putItem(params);
 		} catch (e) {
 			console.log(e);
 		}
