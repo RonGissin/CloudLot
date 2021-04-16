@@ -9,8 +9,8 @@ class VehicleLotTicketRepository {
 
 	async getVehicleLotTicket(ticketId) {
 		const params = {
-			TableName: this.tableName,
-			Key: ticketId
+			TableName: { S: this.tableName },
+			Key: { S: ticketId }
 		};
 
 		return this.ddb.getItem(params).promise();
@@ -18,8 +18,8 @@ class VehicleLotTicketRepository {
 
 	async addOrUpdateVehicleLotTicket(ticket) {
 		const params = {
-			TableName: this.tableName,
-			Item: ticket
+			TableName: { S: this.tableName },
+			Item: { S: ticket }
 		};
 
 		await this.ddb.putItem(params).promise();
