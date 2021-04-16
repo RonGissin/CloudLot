@@ -58,10 +58,10 @@ router.post('/exit', async function(req, res) {
 	console.log(`existing ticket = ${JSON.stringify(existingTicket)}`);
 
 	// validate ticket
-	if (isUndefinedOrNull(existingTicket)) {
+	if (isUndefinedOrNull(existingTicket) || existingTicket.status === 'Closed') {
 		res.send({
 			status: 400,
-			msg: `Bad Request. The ticket with id ${ticketId} does not exist in repository.`
+			msg: `Bad Request. The ticket with id ${ticketId} does not exist in repository, or is already closed.`
 		});
 	}
 
