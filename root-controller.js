@@ -73,7 +73,7 @@ router.post('/exit', async function(req, res) {
 		plate: existingTicket.plate,
 		parkingLotId: existingTicket.parkingLotId,
 		timeOfEntry: existingTicket.timeOfEntry,
-		timeOfExit: vehicleExitTime,
+		timeOfExit: vehicleExitTime.toString(),
 		status: 'Closed'
 	};
 
