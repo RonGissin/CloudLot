@@ -25,7 +25,7 @@ router.post('/entry', async function(req, res) {
 	const ticket = {
 		id: uuidv4(),
 		plate: req.query.plate,
-		parkingLotId: req.query.parkingLotId,
+		parkingLotId: req.query.parkingLot,
 		timeOfEntry: Date.now(),
 		timeOfExit: 'null',
 		status: 'Open'
