@@ -4,7 +4,6 @@ const REGION = 'us-east-2';
 
 class VehicleLotTicketRepository {
 	constructor() {
-		AWS.config.update({ region: 'us-east-2' });
 		this.dbclient = new DynamoDBClient({ region: REGION });
 		this.tableName = 'CloudLotTickets';
 	}
