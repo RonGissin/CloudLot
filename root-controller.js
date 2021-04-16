@@ -76,6 +76,8 @@ router.post('/exit', async function(req, res) {
 		status: 'Closed'
 	};
 
+	console.log(JSON.stringify(closedTicket));
+
 	// close ticket in repository.
 	await vehicleTicketRepository.addOrUpdateVehicleLotTicket(closedTicket);
 
