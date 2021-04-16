@@ -27,7 +27,7 @@ router.post('/entry', async function(req, res) {
 		plate: req.query.plate,
 		parkingLotId: req.query.parkingLot,
 		timeOfEntry: Date.now(),
-		timeOfExit: 'null',
+		timeOfExit: null,
 		status: 'Open'
 	};
 
