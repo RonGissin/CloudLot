@@ -2,6 +2,7 @@ class LotBillCalculator {
 	constructor() {}
 
 	calculateBill(entryDate, exitDate) {
+		console.log(`entry date = ${entryDate}. exit date = ${exitDate}`);
 		const minDiff = getMinuteDiff(exitDate, entryDate);
 		const quarterHourUnits = minDiff / 15;
 		const bill = quarterHourUnits * 2.5;
