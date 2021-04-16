@@ -12,7 +12,7 @@ class LotBillCalculator {
 }
 
 function getMinuteDiff(fstDate, sndDate) {
-	const diffMs = parseInt(Math.abs(fstDate.getTime() - sndDate.getTime()));
+	const diffMs = parseInt(Math.abs(fstDate - sndDate));
 	return Math.round(((diffMs % 86400000) % 3600000) / 60000);
 }
 
