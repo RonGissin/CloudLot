@@ -29,6 +29,7 @@ class VehicleLotTicketRepository {
 			}
 		};
 
+		console.log(JSON.stringify(params.Item));
 		try {
 			await this.ddb.putItem(params).promise();
 		} catch (e) {
