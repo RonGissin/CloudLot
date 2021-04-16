@@ -65,7 +65,7 @@ router.post('/exit', async function(req, res) {
 	}
 
 	// calculate bill
-	const bill = lotBillCalculator.calculateBill(ticket.timeOfEntry, vehicleExitTime);
+	const bill = lotBillCalculator.calculateBill(Date.parse(ticket.timeOfEntry), vehicleExitTime);
 
 	const closedTicket = {
 		id: existingTicket.id,
