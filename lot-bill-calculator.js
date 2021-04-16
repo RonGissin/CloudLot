@@ -14,3 +14,5 @@ function getMinuteDiff(fstDate, sndDate) {
 	const diffMs = Math.abs(fstDate - sndDate);
 	return Math.round(((diffMs % 86400000) % 3600000) / 60000);
 }
+
+module.exports = LotBillCalculator;

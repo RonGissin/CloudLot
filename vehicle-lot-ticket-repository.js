@@ -26,4 +26,4 @@ class VehicleLotTicketRepository {
 	}
 }
 
-module.exports = LotRepository;
+module.exports = VehicleLotTicketRepository;
