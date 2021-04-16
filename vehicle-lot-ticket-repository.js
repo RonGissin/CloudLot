@@ -19,7 +19,14 @@ class VehicleLotTicketRepository {
 	async addOrUpdateVehicleLotTicket(ticket) {
 		const params = {
 			TableName: { S: this.tableName },
-			Item: { S: ticket }
+			Item: {
+				id: { S: ticket.id },
+				plate: { S: ticket.plate },
+				parkingLotId: { S: ticket.parkingLotId },
+				timeOfEntry: { S: ticket.timeOfEntry },
+				timeOfExit: { S: ticket.timeOfExit },
+				status: { S: ticket.status }
+			}
 		};
 
 		await this.ddb.putItem(params).promise();
