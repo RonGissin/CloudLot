@@ -1,9 +1,11 @@
-const AWS = require('aws-sdk');
+const { DynamoDBClient, GetItemCommand, PutItemCommand } = require('@aws-sdk/client-dynamodb');
+
+const REGION = 'us-east-2';
 
 class VehicleLotTicketRepository {
 	constructor() {
 		AWS.config.update({ region: 'us-east-2' });
-		this.ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
+		this.dbclient = new DynamoDBClient({ region: REGION });
 		this.tableName = 'CloudLotTickets';
 	}
 
@@ -15,7 +17,8 @@ class VehicleLotTicketRepository {
 			}
 		};
 
-		return this.ddb.getItem(params).promise();
+		const item = await this.dbclient.send(new GetItemCommand(params));
+		return item;
 	}
 
 	async addOrUpdateVehicleLotTicket(ticket) {
@@ -33,7 +36,7 @@ class VehicleLotTicketRepository {
 
 		console.log(JSON.stringify(params.Item));
 		try {
-			await this.ddb.putItem(params).promise();
+			await this.dbclient.send(new PutItemCommand(params));
 		} catch (e) {
 			console.log(e);
 		}
