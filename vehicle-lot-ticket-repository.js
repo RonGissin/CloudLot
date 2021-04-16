@@ -1,3 +1,7 @@
+/**
+ * Repository to communicate with AWS DynamoDB table.
+ */
+
 const { DynamoDB } = require('@aws-sdk/client-dynamodb');
 const { marshall, unmarshall } = require('@aws-sdk/util-dynamodb');
 

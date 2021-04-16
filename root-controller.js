@@ -1,10 +1,16 @@
+/**
+ * An API Controller to handle requests.
+ */
+
 const express = require('express');
 const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
 const VehicleLotTicketRepository = require('./vehicle-lot-ticket-repository');
 const LotBillCalculator = require('./lot-bill-calculator');
+const ParkingTicketFactory = require('./parking-ticket-factory');
 const vehicleTicketRepository = new VehicleLotTicketRepository();
 const lotBillCalculator = new LotBillCalculator();
+const parkingTicketFactory = new ParkingTicketFactory();
 
 // logging middleware.
 router.use(function timeLog(req, res, next) {
@@ -21,15 +27,14 @@ router.post('/entry', async function(req, res) {
 		});
 	}
 
-	// generate new ticket.
-	const ticket = {
-		id: uuidv4(),
-		plate: req.query.plate,
-		parkingLotId: req.query.parkingLot,
-		timeOfEntry: Date.now(),
-		timeOfExit: 'null',
-		status: 'Open'
-	};
+	const ticket = parkingTicketFactory.create(
+		uuidv4(),
+		req.query.plate,
+		req.query.parkingLot,
+		Date.now(),
+		'null',
+		'Open'
+	);
 
 	// save entry details to db.
 	await vehicleTicketRepository.addOrUpdateVehicleLotTicket(ticket);
@@ -68,14 +73,14 @@ router.post('/exit', async function(req, res) {
 	// calculate bill
 	const bill = lotBillCalculator.calculateBill(new Date(parseInt(existingTicket.timeOfEntry)), vehicleExitTime);
 
-	const closedTicket = {
-		id: existingTicket.id,
-		plate: existingTicket.plate,
-		parkingLotId: existingTicket.parkingLotId,
-		timeOfEntry: existingTicket.timeOfEntry,
-		timeOfExit: vehicleExitTime.toString(),
-		status: 'Closed'
-	};
+	const closedTicket = parkingTicketFactory.create(
+		existingTicket.id,
+		existingTicket.plate,
+		existingTicket.parkingLotId,
+		existingTicket.timeOfEntry,
+		vehicleExitTime.toString(),
+		'Closed'
+	);
 
 	console.log(`closed ticket = ${JSON.stringify(closedTicket)}`);
 

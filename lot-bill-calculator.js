@@ -1,3 +1,7 @@
+/**
+ * A class that helps calculate parking ticket bills according to time in the lot.
+ */
+
 class LotBillCalculator {
 	constructor() {}
 

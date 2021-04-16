@@ -1,3 +1,7 @@
+/**
+ * Application Entrypoint.
+ */
+
 const express = require('express');
 const rootController = require('./root-controller');
 const app = express();
