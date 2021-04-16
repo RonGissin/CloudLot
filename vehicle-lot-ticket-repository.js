@@ -9,7 +9,7 @@ class VehicleLotTicketRepository {
 
 	async getVehicleLotTicket(ticketId) {
 		const params = {
-			TableName: { S: this.tableName },
+			TableName: { S: 'CloudLotTickets' },
 			Key: { S: ticketId }
 		};
 
