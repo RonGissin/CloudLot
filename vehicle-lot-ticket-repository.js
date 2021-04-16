@@ -9,7 +9,7 @@ class VehicleLotTicketRepository {
 
 	async getVehicleLotTicket(ticketId) {
 		const params = {
-			TableName: { S: 'CloudLotTickets' },
+			TableName: this.tableName,
 			Key: { S: ticketId }
 		};
 
@@ -18,7 +18,7 @@ class VehicleLotTicketRepository {
 
 	async addOrUpdateVehicleLotTicket(ticket) {
 		const params = {
-			TableName: { S: this.tableName },
+			TableName: this.tableName,
 			Item: {
 				id: { S: ticket.id },
 				plate: { S: ticket.plate },
