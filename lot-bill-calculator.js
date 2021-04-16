@@ -6,6 +6,7 @@ class LotBillCalculator {
 		const quarterHourUnits = minDiff / 15;
 		const bill = quarterHourUnits * 2.5;
 
+		console.log(`LotBillCalculator - bill is ${bill}`);
 		return bill;
 	}
 }
