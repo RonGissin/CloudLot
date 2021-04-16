@@ -10,7 +10,9 @@ class VehicleLotTicketRepository {
 	async getVehicleLotTicket(ticketId) {
 		const params = {
 			TableName: this.tableName,
-			Key: { S: ticketId }
+			Key: {
+				id: { S: ticketId }
+			}
 		};
 
 		return this.ddb.getItem(params).promise();
