@@ -1,0 +1,25 @@
+{
+  "name": "cloudlot",
+  "version": "1.0.0",
+  "description": "A parking lot management app run in the cloud\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[C\u001b[Cto run in the cloud",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RonGissin/CloudLot.git"
+  },
+  "author": "Ron Gissin, Noam Isachar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RonGissin/CloudLot/issues"
+  },
+  "homepage": "https://github.com/RonGissin/CloudLot#readme",
+  "dependencies": {
+    "aws-sdk": "^2.887.0",
+    "express": "^4.17.1",
+    "uuid": "^8.3.2"
+  }
+}
