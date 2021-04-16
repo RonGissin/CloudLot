@@ -23,8 +23,8 @@ class VehicleLotTicketRepository {
 				id: { S: ticket.id },
 				plate: { S: ticket.plate },
 				parkingLotId: { S: ticket.parkingLotId },
-				timeOfEntry: { S: ticket.timeOfEntry },
-				timeOfExit: { S: ticket.timeOfExit },
+				timeOfEntry: { S: ticket.timeOfEntry.toString() },
+				timeOfExit: { S: ticket.timeOfExit.toString() },
 				status: { S: ticket.status }
 			}
 		};
