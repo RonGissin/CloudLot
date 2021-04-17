@@ -2,6 +2,7 @@
  * An API Controller to handle requests.
  */
 
+const moment = require('moment');
 const express = require('express');
 const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
@@ -76,6 +77,7 @@ router.post('/exit', async function(req, res) {
 
 	// calculate bill
 	const bill = lotBillCalculator.calculateBill(new Date(parseInt(existingTicket.timeOfEntry)), vehicleExitTime);
+	const totalParkingTime = moment.precise(vehicleExitTime - existingTicket.timeOfEntry).humanize();
 
 	const closedTicket = parkingTicketFactory.create(
 		existingTicket.id,
@@ -95,6 +97,7 @@ router.post('/exit', async function(req, res) {
 		status: 200,
 		msg: `Vehicle exited the lot successfully`,
 		ticket: closedTicket,
+		totalParkingTime: totalParkingTime,
 		bill: bill
 	});
 });
