@@ -49,6 +49,17 @@ aws ec2 authorize-security-group-ingress        \
     --group-name $SEC_GRP --port 3000 --protocol tcp \
     --cidr $MY_IP/32
 
+############################ CREATE DYNAMODB TABLE ##############################
+echo "creating dynamoDB table for persistent storage"
+aws dynamodb create-table \
+    --table-name $TABLE_NAME \
+    --attribute-definitions \
+        AttributeName=id,AttributeType=S \
+    --key-schema \
+        AttributeName=id,KeyType=HASH \
+--provisioned-throughput \
+        ReadCapacityUnits=10,WriteCapacityUnits=5
+
 ############################### CREATE EC2 ######################################
 echo "Creating Ubuntu instance with ami -> $UBUNTU_AMI..."
 RUN_INSTANCES=$(aws ec2 run-instances   \
@@ -98,17 +109,6 @@ ssh -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" ec2-use
     nohup npm start --host 0.0.0.0  &>/dev/null &
     exit
 EOF
-
-############################ CREATE DYNAMODB TABLE ##############################
-echo "creating dynamoDB table for persistent storage"
-aws dynamodb create-table \
-    --table-name $TABLE_NAME \
-    --attribute-definitions \
-        AttributeName=id,AttributeType=S \
-    --key-schema \
-        AttributeName=id,KeyType=HASH \
---provisioned-throughput \
-        ReadCapacityUnits=10,WriteCapacityUnits=5
 
 echo "test that it all worked"
 curl  --retry-connrefused --retry 10 --retry-delay 5  http://$PUBLIC_IP:3000
