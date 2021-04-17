@@ -2,6 +2,8 @@
  * A class that helps calculate parking ticket bills according to time in the lot.
  */
 
+const moment = require('moment');
+
 class LotBillCalculator {
 	constructor() {}
 
@@ -17,8 +19,7 @@ class LotBillCalculator {
 }
 
 function getMinuteDiff(fstDate, sndDate) {
-	const diffMs = parseInt(Math.abs(fstDate - sndDate));
-	return Math.round(((diffMs % 86400000) % 3600000) / 60000);
+	return moment(fstDate).diff(moment(sndDate), 'minutes');
 }
 
 module.exports = LotBillCalculator;
