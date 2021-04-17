@@ -77,7 +77,7 @@ router.post('/exit', async function(req, res) {
 
 	// calculate bill
 	const bill = lotBillCalculator.calculateBill(new Date(parseInt(existingTicket.timeOfEntry)), vehicleExitTime);
-	const totalParkingTime = moment.precise(vehicleExitTime - existingTicket.timeOfEntry).humanize();
+	const totalParkingTime = moment.duration(vehicleExitTime - existingTicket.timeOfEntry).humanize();
 
 	const closedTicket = parkingTicketFactory.create(
 		existingTicket.id,
