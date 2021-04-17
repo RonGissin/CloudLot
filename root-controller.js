@@ -19,7 +19,7 @@ router.use(function timeLog(req, res, next) {
 });
 
 router.get('/', function(req, res) {
-	res.send({ status: ok, description: 'ping test route, ping successful' });
+	res.send({ status: 'ok', description: 'ping test route, ping successful' });
 });
 
 // define the home page route
