@@ -23,8 +23,8 @@ The setup script bootstraps the following resources:
 
 ## Usage
 After deployment was successful, you can interact with the app's api using the following endpoints:
-* POST  <EC2-PUBLIC-IP>/entry?plate=<VEHICLE-LICENSE-PLATE>&parkingLot=<PARKING-LOT-ID>\
+* POST  EC2-PUBLIC-IP/entry?plate=VEHICLE-LICENSE-PLATE&parkingLot=PARKING-LOT-ID\
   Enrolls the vehicle into the chosen lot, and returns the ticket id.
   
-* POST  <EC2-PUBLIC-IP>/exit?ticketId=<PARKING-TICKET-ID>\
+* POST  EC2-PUBLIC-IP/exit?ticketId=PARKING-TICKET-ID\
   Returns the parking bill for the provided ticket according to time inside the lot.
