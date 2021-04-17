@@ -10,7 +10,7 @@ const REGION = 'us-east-2';
 class VehicleLotTicketRepository {
 	constructor() {
 		this.dbclient = new DynamoDB({ region: REGION });
-		this.tableName = 'CloudLotTickets';
+		this.tableName = 'CloudLotParkingTickets';
 	}
 
 	async getVehicleLotTicket(ticketId) {
