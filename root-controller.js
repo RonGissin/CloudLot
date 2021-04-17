@@ -18,6 +18,10 @@ router.use(function timeLog(req, res, next) {
 	next();
 });
 
+router.get('/', function(req, res) {
+	res.send({ status: ok, description: 'ping test route, ping successful' });
+});
+
 // define the home page route
 router.post('/entry', async function(req, res) {
 	if (!isValidEntryRequest(req)) {
