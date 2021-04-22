@@ -9,9 +9,10 @@ This is a Node.js app run inside of an EC2 t3.micro instance with a linux AMI.
 The application state (parking tickets..) is kept in a DynamoDB table in AWS. 
 
 ## How to deploy the app + resources
-1) cd into the app's root directory (using cmd) and run `aws configure`
+1) cd into the app's root directory (using cmd) and run `aws configure` (must use linux terminal like git bash)
 2) Fill in the necessary details (access key, region, etc.)
-3) Run `./setup.sh` from the same directory as before.
+3) Make sure that you have 'jq' installed. If not, run `choco install jq` 
+4) Run `./setup.sh` from the same directory as before.
 
 ## Setup.sh - what is deployed ?
 The setup script bootstraps the following resources:
