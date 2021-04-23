@@ -28,7 +28,7 @@ router.post('/entry', async function(req, res) {
 	if (!isValidEntryRequest(req)) {
 		res.send({
 			status: 400,
-			msg: 'Bad Request. Need to include license plate and parking lot id as query params.'
+			msg: 'Bad Request. Missing license plate and parking lot id as query params.'
 		});
 	}
 
@@ -45,8 +45,9 @@ router.post('/entry', async function(req, res) {
 	await vehicleTicketRepository.addOrUpdateVehicleLotTicket(ticket);
 
 	res.send({
-		status: 200,
-		msg: `Vehicle entered lot`,
+		status: 201,
+		msg: `Vehicle with plate ${req.query.plate} has entered lot ${req.query.parkingLot}. 
+		Ticket was created successfully.`,
 		ticket: ticket
 	});
 });
@@ -56,7 +57,7 @@ router.post('/exit', async function(req, res) {
 	if (!isValidExitRequest(req)) {
 		res.send({
 			status: 400,
-			msg: `Bad Request. Need to include ticket id as query param.`
+			msg: `Bad Request. Missing ticket id as query param.`
 		});
 	}
 
@@ -95,7 +96,7 @@ router.post('/exit', async function(req, res) {
 
 	res.send({
 		status: 200,
-		msg: `Vehicle exited the lot successfully`,
+		msg: `Vehicle exited the lot successfully. Status of ticket ${closedTicket.id} is now Closed.`,
 		ticket: closedTicket,
 		totalParkingTime: totalParkingTime,
 		bill: bill
