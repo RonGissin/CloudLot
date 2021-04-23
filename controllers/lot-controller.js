@@ -6,16 +6,12 @@ const moment = require('moment');
 const express = require('express');
 const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
-const timeLog = require('./middleware').timeLog;
 const VehicleLotTicketRepository = require('../vehicle-lot-ticket-repository');
 const LotBillCalculator = require('../lot-bill-calculator');
 const ParkingTicketFactory = require('../parking-ticket-factory');
 const vehicleTicketRepository = new VehicleLotTicketRepository();
 const lotBillCalculator = new LotBillCalculator();
 const parkingTicketFactory = new ParkingTicketFactory();
-
-// logging middleware.
-router.use(timeLog);
 
 // define the home page route
 router.post('/entry', async function(req, res) {
