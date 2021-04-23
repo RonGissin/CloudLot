@@ -111,7 +111,7 @@ ssh -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" ec2-use
 EOF
 
 echo "test that it all worked"
-curl  --retry-connrefused --retry 10 --retry-delay 5  http://$PUBLIC_IP:3000
+curl  --retry-connrefused --retry 10 --retry-delay 5  http://$PUBLIC_IP:3000/ping
 
 printf "\nCLOUDLOT API IS NOW RUNNING :-) \n 
         The API exposes the following endpoints: \n 

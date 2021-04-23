@@ -1,32 +1,26 @@
 /**
- * An API Controller to handle requests.
+ * An API Controller to handle requests for parking lot entry and exit operations.
  */
 
 const moment = require('moment');
 const express = require('express');
 const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
-const VehicleLotTicketRepository = require('./vehicle-lot-ticket-repository');
-const LotBillCalculator = require('./lot-bill-calculator');
-const ParkingTicketFactory = require('./parking-ticket-factory');
+const timeLog = require('./middleware').timeLog;
+const VehicleLotTicketRepository = require('../vehicle-lot-ticket-repository');
+const LotBillCalculator = require('../lot-bill-calculator');
+const ParkingTicketFactory = require('../parking-ticket-factory');
 const vehicleTicketRepository = new VehicleLotTicketRepository();
 const lotBillCalculator = new LotBillCalculator();
 const parkingTicketFactory = new ParkingTicketFactory();
 
 // logging middleware.
-router.use(function timeLog(req, res, next) {
-	console.log(`Time: ${Date.now()}, Request: ${req}`);
-	next();
-});
-
-router.get('/', function(req, res) {
-	res.send({ status: 'ok', description: 'ping test route, ping successful' });
-});
+router.use(timeLog);
 
 // define the home page route
 router.post('/entry', async function(req, res) {
 	if (!isValidEntryRequest(req)) {
-		res.send({
+		res.status(400).send({
 			status: 400,
 			msg: 'Bad Request. Missing license plate and parking lot id as query params.'
 		});
@@ -44,7 +38,7 @@ router.post('/entry', async function(req, res) {
 	// save entry details to db.
 	await vehicleTicketRepository.addOrUpdateVehicleLotTicket(ticket);
 
-	res.send({
+	res.status(201).send({
 		status: 201,
 		msg: `Vehicle with plate ${req.query.plate} has entered lot ${req.query.parkingLot}. 
 		Ticket was created successfully.`,
@@ -55,7 +49,7 @@ router.post('/entry', async function(req, res) {
 // define the about route
 router.post('/exit', async function(req, res) {
 	if (!isValidExitRequest(req)) {
-		res.send({
+		res.status(400).send({
 			status: 400,
 			msg: `Bad Request. Missing ticket id as query param.`
 		});
@@ -70,7 +64,7 @@ router.post('/exit', async function(req, res) {
 
 	// validate ticket
 	if (isUndefinedOrNull(existingTicket) || existingTicket.status === 'Closed') {
-		res.send({
+		res.status(400).send({
 			status: 400,
 			msg: `Bad Request. The ticket with id ${ticketId} does not exist in repository, or is already closed.`
 		});
@@ -94,7 +88,7 @@ router.post('/exit', async function(req, res) {
 	// close ticket in repository.
 	await vehicleTicketRepository.addOrUpdateVehicleLotTicket(closedTicket);
 
-	res.send({
+	res.status(200).send({
 		status: 200,
 		msg: `Vehicle exited the lot successfully. Status of ticket ${closedTicket.id} is now Closed.`,
 		ticket: closedTicket,
