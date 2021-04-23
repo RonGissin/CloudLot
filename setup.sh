@@ -84,7 +84,7 @@ echo "Created new instance $INSTANCE_ID @ $PUBLIC_IP"
 echo "setup production environment on instance"
 ssh -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" ec2-user@$PUBLIC_IP <<EOF
     # update
-    sudo apt update
+    sudo yum update -y
 
     # install git
     sudo yum install git -y
