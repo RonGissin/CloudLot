@@ -27,6 +27,7 @@ class VehicleLotTicketRepository {
 			item = await this.dbclient.getItem(params);
 		} catch (e) {
 			console.log(e);
+			return null;
 		}
 
 		return item === null ? null : unmarshall(item.Item);
