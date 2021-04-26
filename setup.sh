@@ -119,3 +119,4 @@ printf "\nCLOUDLOT API IS NOW RUNNING :-) \n
         POST $PUBLIC_IP/exit?ticketId=<ticket-id> \n \n 
         ENJOY"
 
+exit
