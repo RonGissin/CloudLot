@@ -21,16 +21,15 @@ class VehicleLotTicketRepository {
 			})
 		};
 
-		let item = null;
+		let item = {};
 
 		try {
 			item = await this.dbclient.getItem(params);
 		} catch (e) {
 			console.log(e);
-			return null;
 		}
 
-		return item === null ? null : unmarshall(item.Item);
+		return item.Item === undefined ? null : unmarshall(item.Item);
 	}
 
 	async addOrUpdateVehicleLotTicket(ticket) {
