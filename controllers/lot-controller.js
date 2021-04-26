@@ -56,7 +56,6 @@ router.post('/exit', async function(req, res) {
 
 	// fetch ticket
 	const existingTicket = await vehicleTicketRepository.getVehicleLotTicket(ticketId);
-	console.log(`existing ticket = ${JSON.stringify(existingTicket)}`);
 
 	// validate ticket
 	if (isUndefinedOrNull(existingTicket) || existingTicket.status === 'Closed') {

@@ -27,10 +27,9 @@ class VehicleLotTicketRepository {
 			item = await this.dbclient.getItem(params);
 		} catch (e) {
 			console.log(e);
-			return null;
 		}
 
-		return unmarshall(item.Item);
+		return item === null ? null : unmarshall(item.Item);
 	}
 
 	async addOrUpdateVehicleLotTicket(ticket) {
